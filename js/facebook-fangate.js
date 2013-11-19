@@ -17,17 +17,17 @@ function FacebookFangate(params) {
     var self = this;
 
     /**
-     * Store previous like status for change notifications
-     * @type {null}
+     * Use as last status
+     * @type boolean
      */
-    self.previousLikeStatus = null;
+    self.likes = false;
 
     /**
      * Debug message
      * @param message
      */
     self.debug = function(message, object) {
-        if (true)
+        if (typeof(params.debug) != "undefined")
             console.log(message, object);
     };
 
@@ -68,14 +68,14 @@ function FacebookFangate(params) {
             var isLiking = rows.length > 0;
 
             // call callback status update
-            if (self.previousLikeStatus !== isLiking)
+            if (self.likes !== isLiking)
                 self.onChangeStatus(isLiking);
-            self.previousLikeStatus = isLiking;
+            self.likes = isLiking;
         }, function(error) {
             // failed, the only error I can think of is login status problem
-            if (self.previousLikeStatus !== false)
+            if (self.likes !== false)
                 self.onChangeStatus(false);
-            self.previousLikeStatus = false;
+            self.likes = false;
         });
     }
 
@@ -120,7 +120,7 @@ function FacebookFangate(params) {
      * Listen on like event
      */
     self.fbInstance.Event.subscribe('edge.create', function(href, widget) {
-        self.debug(response, "edge.create");
+        self.debug(href, "edge.create");
         self.checkLike();
     });
 
@@ -128,7 +128,7 @@ function FacebookFangate(params) {
      * Listen on unlike event
      */
     self.fbInstance.Event.subscribe('edge.remove', function(href, widget) {
-        self.debug(response, "edge.remove");
+        self.debug(href, "edge.remove");
         self.checkLike();
     });
 

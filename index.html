@@ -19,14 +19,14 @@
         new FacebookFangate({
             fbPageId       : '202758919816608', // page we want to use for fan gate
             onChangeStatus : function(like) {
-                console.log("Friend List Watcher - " + like.toString());
-            }
-        });
-
-        new FacebookFangate({
-            fbPageId       : '107641979264998', // page we want to use for fan gate
-            onChangeStatus : function(like) {
-                console.log("Harry Potter - " + like.toString());
+                if (like) {
+                    document.getElementById("like-wrong").style.display = 'none';
+                    document.getElementById("like-ok").style.display = 'block';
+                }
+                else {
+                    document.getElementById("like-wrong").style.display = 'block';
+                    document.getElementById("like-ok").style.display = 'none';
+                }
             }
         });
     };
@@ -41,9 +41,19 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 <div>
-    <div onclick="FB.login(function(response) {},{scope:'email,user_likes'});">Login with Facebook</div>
+    <button onclick="FB.login(function(response) {},{scope:'user_likes'});">Login with Facebook</button>
 </div>
 
+<!-- like buttons -->
+<div class="fb-like-box" data-href="https://www.facebook.com/flwapp" data-width="300" data-height="100" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+
+<!-- gate handler -->
+<div id="like-wrong">
+    Please login and like page to continue!
+</div>
+<div id="like-ok" style="display:none">
+    Thank you!
+</div>
 
 </body>
 </html>
