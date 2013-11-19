@@ -6,7 +6,7 @@ Implementation requires `user_likes` permission from facebook user.
 
 ### How to use
 ```html
-<script src="facebook-fangate.js" type="text/javascript"></script>
+<script src="facebook-fangate.js"></script>
 ```
 
 ```javascript
