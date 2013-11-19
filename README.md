@@ -4,6 +4,8 @@ This is full client side implementation of fan gate using Facebook Javascript SD
 
 Implementation requires `user_likes` permission from facebook user.
 
+Live demo: http://marv.iluzia.cz/fangate/
+
 ### How to use
 ```html
 <script src="facebook-fangate.js"></script>
