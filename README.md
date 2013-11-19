@@ -10,7 +10,7 @@ Implementation requires `user_likes` permission from facebook user.
 ```
 
 ```javascript
-// insert into fbAsyncInit or after FB object is initialized
+// insert into fbAsyncInit function after init
 var gate = new FacebookFangate({
     fbPageId       : '202758919816608', // page we want to use for fan gate
     onChangeStatus : function(like) {
@@ -22,13 +22,15 @@ var gate = new FacebookFangate({
         }
     }
     // debug       : 1, // uncomment to enable debug output
+    // fbInstance  : FB // change in case Facebook JS SDK is using different object
+                        // not usually needed
 });
 ```
 
-in case you need to check for like manually or get last know like status do
+in case you need to check for like manually or get last know like status
 
 ```javascript
-// last know like status
+// last known like status
 gate.likes;
 // call check like status manually
 gate.checkLike();
